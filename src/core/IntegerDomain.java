@@ -1,5 +1,8 @@
 package core;
 
+import core.enums.VariableType;
+import core.exceptions.DomainException;
+
 public class IntegerDomain extends Domain {
 
 	private int lowerBoundary = 0;

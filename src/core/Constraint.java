@@ -1,5 +1,49 @@
 package core;
 
-public class Constraint {
+import core.enums.ConstraintType;
 
+public class Constraint {
+	
+	private Variable left;
+	private ConstraintType type;
+	private Variable right = null;
+	private Object value = null;
+	
+	public Constraint(Variable var, ConstraintType type, Object value) {
+		this.left = var;
+		this.type = type;
+		this.value = value;
+	}
+	
+	public Constraint(Variable left, ConstraintType type, Variable right) {
+		this.left = left;
+		this.type = type;
+		this.right = right;
+	}
+	
+	public boolean isConstraintValid() {
+		int comparison;
+		if (right != null) {
+			comparison = left.compareTo(right);
+		} else {
+			comparison = left.compareToValue(value);
+		}
+		switch (type) {
+		case DIFFERENT:
+			return comparison != 0;
+		case EQUAL:
+			return comparison == 0;
+		case LESS:
+			return comparison < 0;
+		case LESS_EQUAL:
+			return comparison <= 0;
+		case MORE:
+			return comparison > 0;
+		case MORE_EQUAL:
+			return comparison >= 0;
+		default:
+			break;
+		}
+		return false;
+	}
 }

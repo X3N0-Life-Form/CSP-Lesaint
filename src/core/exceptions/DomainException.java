@@ -1,4 +1,4 @@
-package core;
+package core.exceptions;
 
 public class DomainException extends Exception {
 
