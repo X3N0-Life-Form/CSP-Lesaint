@@ -20,9 +20,11 @@ public class TestsConstraint {
 	private Constraint c_v1_less_equal_1;
 	private Constraint c_v1_more_1;
 	private Constraint c_v1_more_equal_1;
+	private Variable var_unsupported;
 
 	@Before
 	public void setUp() throws Exception {
+		var_unsupported = new Variable("var_unsupported", VariableType.TEST_UNSUPPORTED);
 		var_1 = new Variable("var_1", VariableType.INTEGER);
 		var_1.setValue(new Integer(1));
 		c_v1_diff_1 = new Constraint(var_1, ConstraintType.DIFFERENT, new Integer(1));
@@ -54,5 +56,15 @@ public class TestsConstraint {
 		assertTrue(c_v1_less_equal_1.isConstraintValid());
 		assertFalse(c_v1_more_1.isConstraintValid());
 		assertTrue(c_v1_more_equal_1.isConstraintValid());
+	}
+	
+	@Test(expected=VariableException.class)
+	public void test_constructInvalidValueType() throws VariableException {
+		new Constraint(var_1, ConstraintType.DIFFERENT, new Object());
+	}
+	
+	@Test(expected=VariableException.class)
+	public void test_constructInvalidVariableType() throws VariableException {
+		new Constraint(var_1, ConstraintType.DIFFERENT, var_unsupported);
 	}
 }

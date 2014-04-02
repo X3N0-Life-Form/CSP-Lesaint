@@ -24,7 +24,7 @@ public class Variable implements Comparable<Variable> {
 		} else if (type == VariableType.INTEGER && value instanceof Integer) {
 			this.value = value;
 		} else {
-			throw new VariableException("Invalid object type, expected " + type);
+			throw new VariableException("Invalid object type, expected " + type + ", received " + value.getClass());
 		}
 	}
 	
@@ -57,7 +57,7 @@ public class Variable implements Comparable<Variable> {
 			if (value2 instanceof Integer) {
 				return ((Integer) this.value).compareTo((Integer) value2);
 			} else {
-				throw new VariableException("Invalid value type, expected " + type);
+				throw new VariableException("Invalid value type, expected " + type + ", received " + value2.getClass());
 			}
 		case TEST_UNSUPPORTED:
 			return 0;

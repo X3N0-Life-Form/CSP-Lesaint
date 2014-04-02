@@ -10,13 +10,27 @@ public class Constraint {
 	private Variable right = null;
 	private Object value = null;
 	
-	public Constraint(Variable var, ConstraintType type, Object value) {
+	public Constraint(Variable var, ConstraintType type, Object value) throws VariableException {
+		switch (var.getType()) {
+		case INTEGER:
+			if (!(value instanceof Integer)) {
+				throw new VariableException("Invalid type, expected " + Integer.class + ", found " + value.getClass());
+			}
+			break;
+		default:
+			throw new VariableException("Unsupported type: " + var.getType());
+		}
+		
 		this.left = var;
 		this.type = type;
 		this.value = value;
 	}
 	
-	public Constraint(Variable left, ConstraintType type, Variable right) {
+	public Constraint(Variable left, ConstraintType type, Variable right) throws VariableException {
+		if (left.getType() != right.getType()) {
+			throw new VariableException("Mismatching variable types: " + left.getType() + " != " + right.getType());
+		}
+		
 		this.left = left;
 		this.type = type;
 		this.right = right;
