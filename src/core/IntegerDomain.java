@@ -1,5 +1,7 @@
 package core;
 
+import java.util.List;
+
 import core.enums.VariableType;
 import core.exceptions.DomainException;
 
@@ -7,6 +9,7 @@ public class IntegerDomain extends Domain {
 
 	private int lowerBoundary = 0;
 	private int upperBoundary = Integer.MAX_VALUE;
+	private List<Integer> validValues = null;//TODO
 	
 	public IntegerDomain() {}
 	
@@ -21,7 +24,17 @@ public class IntegerDomain extends Domain {
 			throw new DomainException("Invalid domain, expected " + VariableType.INTEGER
 					+ "found " + var.getType());
 		}
-		return false;
+		
+		int value = (int) var.getValue();
+		if (value < lowerBoundary) {
+			return false;
+		} else if (value > upperBoundary) {
+			return false;
+		} else if (validValues != null && !validValues.contains(value)) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	public int getLowerBoundary() {

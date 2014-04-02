@@ -19,7 +19,9 @@ public class Variable implements Comparable<Variable> {
 	}
 	
 	public void setValue(Object value) throws VariableException {
-		if (type == VariableType.INTEGER || value instanceof Integer) {
+		if (value == null) {
+			throw new VariableException("Passed a null reference");
+		} else if (type == VariableType.INTEGER && value instanceof Integer) {
 			this.value = value;
 		} else {
 			throw new VariableException("Invalid object type, expected " + type);
@@ -39,13 +41,23 @@ public class Variable implements Comparable<Variable> {
 	}
 
 	@Override
-	public int compareTo(Variable o) {
-		// TODO Auto-generated method stub
+	public int compareTo(Variable anotherVariable) {
+		switch (type) {
+		case INTEGER:
+			return ((Integer) this.value).compareTo((Integer) anotherVariable.value);
+		}
 		return 0;
 	}
 
-	public int compareToValue(Object value2) {
-		// TODO Auto-generated method stub
+	public int compareToValue(Object value2) throws VariableException {
+		switch (type) {
+		case INTEGER:
+			if (value2 instanceof Integer) {
+				return ((Integer) this.value).compareTo((Integer) value2);
+			} else {
+				throw new VariableException("Invalid value type, expected " + type);
+			}
+		}
 		return 0;
 	}
 

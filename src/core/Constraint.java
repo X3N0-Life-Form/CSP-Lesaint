@@ -1,6 +1,7 @@
 package core;
 
 import core.enums.ConstraintType;
+import core.exceptions.VariableException;
 
 public class Constraint {
 	
@@ -26,7 +27,11 @@ public class Constraint {
 		if (right != null) {
 			comparison = left.compareTo(right);
 		} else {
-			comparison = left.compareToValue(value);
+			try {
+				comparison = left.compareToValue(value);
+			} catch (VariableException e) {
+				return false;
+			}
 		}
 		switch (type) {
 		case DIFFERENT:
