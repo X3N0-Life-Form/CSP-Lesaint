@@ -38,7 +38,9 @@ public class Constraint {
 	
 	public boolean isConstraintValid() {
 		int comparison;
-		if (right != null) {
+		if (left == null || left.getValue() == null) {
+			return false;
+		} else if (right != null) {
 			comparison = left.compareTo(right);
 		} else {
 			try {
@@ -47,6 +49,7 @@ public class Constraint {
 				return false;
 			}
 		}
+		
 		switch (type) {
 		case DIFFERENT:
 			return comparison != 0;

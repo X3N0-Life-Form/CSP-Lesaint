@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import core.exceptions.DomainException;
+
 public class CSP {
 	private Map<Variable, Domain> variables;
 	private Set<Domain> domains;
@@ -23,12 +25,8 @@ public class CSP {
 	}
 	
 	public void addVariable(Variable var, Domain domain) {
-		if (!domains.contains(domain)) {
-			domains.add(domain);
-		}
-		if (!variables.containsKey(var)) {
-			variables.put(var, domain);
-		}
+		domains.add(domain);
+		variables.put(var, domain);
 	}
 	
 	public void addConstraint(Constraint constraint) {
@@ -47,5 +45,25 @@ public class CSP {
 		return constraints;
 	}
 	
-	
+	public boolean isProblemSolved() {
+		// check domains
+		for (Variable var : variables.keySet()) {
+			Domain domain = variables.get(var);
+			try {
+				if (!domain.includes(var)) {
+					return false;
+				}
+			} catch (DomainException e) {
+				return false;
+			}
+		}
+		
+		// check constraints
+		for (Constraint constraint : constraints) {
+			if (!constraint.isConstraintValid()) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

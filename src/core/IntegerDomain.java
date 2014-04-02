@@ -25,6 +25,8 @@ public class IntegerDomain extends Domain {
 		if (var.getType() != VariableType.INTEGER) {
 			throw new DomainException("Invalid domain, expected " + VariableType.INTEGER
 					+ "found " + var.getType());
+		} else if (var.getValue() == null) {
+			return false;
 		}
 		
 		int value = (int) var.getValue();

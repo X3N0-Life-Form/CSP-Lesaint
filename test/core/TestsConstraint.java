@@ -58,6 +58,13 @@ public class TestsConstraint {
 		assertTrue(c_v1_more_equal_1.isConstraintValid());
 	}
 	
+	@Test
+	public void test_constraintValidation_unsetVar() throws VariableException {
+		var_1 = new Variable("var_1", VariableType.INTEGER);
+		Constraint c1 = new Constraint(var_1, ConstraintType.LESS, new Integer(5));
+		assertFalse(c1.isConstraintValid());
+	}
+	
 	@Test(expected=VariableException.class)
 	public void test_constructInvalidValueType() throws VariableException {
 		new Constraint(var_1, ConstraintType.DIFFERENT, new Object());
@@ -67,4 +74,5 @@ public class TestsConstraint {
 	public void test_constructInvalidVariableType() throws VariableException {
 		new Constraint(var_1, ConstraintType.DIFFERENT, var_unsupported);
 	}
+	
 }
