@@ -9,9 +9,11 @@ public class IntegerDomain extends Domain {
 
 	private int lowerBoundary = 0;
 	private int upperBoundary = Integer.MAX_VALUE;
-	private List<Integer> validValues = null;//TODO
+	private List<Integer> validValues = null;
 	
-	public IntegerDomain() {}
+	public IntegerDomain(List<Integer> validValues) {
+		this.validValues = validValues;
+	}
 	
 	public IntegerDomain(int lowerBoundary, int upperBoundary) {
 		this.setLowerBoundary(lowerBoundary);

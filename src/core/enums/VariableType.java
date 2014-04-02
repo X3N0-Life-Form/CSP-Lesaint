@@ -1,5 +1,6 @@
 package core.enums;
 
 public enum VariableType {
-	INTEGER
+	INTEGER,
+	TEST_UNSUPPORTED
 }

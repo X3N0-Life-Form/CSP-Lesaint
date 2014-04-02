@@ -45,6 +45,8 @@ public class Variable implements Comparable<Variable> {
 		switch (type) {
 		case INTEGER:
 			return ((Integer) this.value).compareTo((Integer) anotherVariable.value);
+		case TEST_UNSUPPORTED:
+			return 0;
 		}
 		return 0;
 	}
@@ -57,6 +59,8 @@ public class Variable implements Comparable<Variable> {
 			} else {
 				throw new VariableException("Invalid value type, expected " + type);
 			}
+		case TEST_UNSUPPORTED:
+			return 0;
 		}
 		return 0;
 	}
