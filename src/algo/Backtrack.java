@@ -1,11 +1,22 @@
 package algo;
 
-public class Backtrack implements Algorithm {
+import core.CSP;
 
+public class Backtrack implements Algorithm {
+	
+	private CSP problem;
+	
+	public Backtrack(CSP csp) {
+		this.problem = csp;
+	}
+
+	public void backtrack(CSP csp) {
+		
+	}
+	
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
-		
+		backtrack(problem);
 	}
 
 }
