@@ -66,4 +66,21 @@ public class CSP {
 		}
 		return true;
 	}
+	
+	/**
+	 * Note: an unset variable is a variable whose value is null.
+	 * @return Variable object that has not been set, or null.
+	 */
+	public Variable getUnsetVariable() {
+		for (Variable var : variables.keySet()) {
+			if (var.getValue() == null) {
+				return var;
+			}
+		}
+		return null;
+	}
+	
+	public List<Variable> getVariablesFromDomain(Domain domain) {
+		return null;
+	}
 }

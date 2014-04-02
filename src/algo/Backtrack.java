@@ -1,6 +1,8 @@
 package algo;
 
 import core.CSP;
+import core.Domain;
+import core.Variable;
 
 public class Backtrack implements Algorithm {
 	
@@ -10,8 +12,12 @@ public class Backtrack implements Algorithm {
 		this.problem = csp;
 	}
 
-	public void backtrack(CSP csp) {
-		
+	public boolean backtrack(CSP csp) {
+		Variable varUnset = null;
+		while ((varUnset = csp.getUnsetVariable()) != null) {
+			Domain domain = csp.getVariables().get(varUnset);
+		}
+		return false;
 	}
 	
 	@Override
