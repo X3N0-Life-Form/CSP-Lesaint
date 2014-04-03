@@ -80,7 +80,25 @@ public class CSP {
 		return null;
 	}
 	
+	@Deprecated
 	public List<Variable> getVariablesFromDomain(Domain domain) {
 		return null;
 	}
+
+	@Override
+	public String toString() {
+		String string = "CSP [variables=";
+		for (Variable var : variables.keySet()) {
+			string += "\n\t" + var;
+		}
+		string += "\ndomains=" + domains;
+		string += "\nconstraints="; 
+		for (Constraint c : constraints) {
+			string += "\n\t" + c;
+		}
+		string += "\n]";
+		return string;
+	}
+	
+	
 }

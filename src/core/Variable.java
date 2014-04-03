@@ -65,4 +65,10 @@ public class Variable implements Comparable<Variable> {
 		return 0;
 	}
 
+	@Override
+	public String toString() {
+		return "Variable [type=" + type + ", value=" + value + ", name=" + name
+				+ "]";
+	}
+
 }

@@ -31,10 +31,10 @@ public class TestsConstraint {
 		c_v1_diff_2 = new Constraint(var_1, ConstraintType.DIFFERENT, new Integer(2));
 		
 		c_v1_equal_1 = new Constraint(var_1, ConstraintType.EQUAL, new Integer(1));
-		c_v1_less_1 = new Constraint(var_1, ConstraintType.LESS, new Integer(1));
-		c_v1_less_equal_1 = new Constraint(var_1, ConstraintType.LESS_EQUAL, new Integer(1));
-		c_v1_more_1 = new Constraint(var_1, ConstraintType.MORE, new Integer(1));
-		c_v1_more_equal_1 = new Constraint(var_1, ConstraintType.MORE_EQUAL, new Integer(1));
+		c_v1_less_1 = new Constraint(var_1, ConstraintType.INF, new Integer(1));
+		c_v1_less_equal_1 = new Constraint(var_1, ConstraintType.INF_EQUAL, new Integer(1));
+		c_v1_more_1 = new Constraint(var_1, ConstraintType.SUP, new Integer(1));
+		c_v1_more_equal_1 = new Constraint(var_1, ConstraintType.SUP_EQUAL, new Integer(1));
 	}
 
 	@After
@@ -61,7 +61,7 @@ public class TestsConstraint {
 	@Test
 	public void test_constraintValidation_unsetVar() throws VariableException {
 		var_1 = new Variable("var_1", VariableType.INTEGER);
-		Constraint c1 = new Constraint(var_1, ConstraintType.LESS, new Integer(5));
+		Constraint c1 = new Constraint(var_1, ConstraintType.INF, new Integer(5));
 		assertFalse(c1.isConstraintValid());
 	}
 	

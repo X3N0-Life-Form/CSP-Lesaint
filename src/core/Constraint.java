@@ -55,17 +55,24 @@ public class Constraint {
 			return comparison != 0;
 		case EQUAL:
 			return comparison == 0;
-		case LESS:
+		case INF:
 			return comparison < 0;
-		case LESS_EQUAL:
+		case INF_EQUAL:
 			return comparison <= 0;
-		case MORE:
+		case SUP:
 			return comparison > 0;
-		case MORE_EQUAL:
+		case SUP_EQUAL:
 			return comparison >= 0;
 		default:
 			break;
 		}
 		return false;
 	}
+
+	@Override
+	public String toString() {
+		return "Constraint [left=" + left + ", type=" + type + ", right="
+				+ right + ", value=" + value + "]";
+	}
+	
 }

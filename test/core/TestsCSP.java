@@ -27,8 +27,8 @@ public class TestsCSP {
 		d2 = new IntegerDomain(-5, -1);
 		var_1 = new Variable("var_1", VariableType.INTEGER);
 		var_2 = new Variable("var_2", VariableType.INTEGER);
-		c1 = new Constraint(var_1, ConstraintType.LESS, new Integer(5));
-		c2 = new Constraint(var_2, ConstraintType.MORE, new Integer(-3));
+		c1 = new Constraint(var_1, ConstraintType.INF, new Integer(5));
+		c2 = new Constraint(var_2, ConstraintType.SUP, new Integer(-3));
 	}
 
 	@After

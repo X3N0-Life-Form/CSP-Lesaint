@@ -61,4 +61,11 @@ public class IntegerDomain extends Domain {
 		return validValues;
 	}
 
+	@Override
+	public String toString() {
+		return "IntegerDomain [lowerBoundary=" + lowerBoundary
+				+ ", upperBoundary=" + upperBoundary + ", validValues="
+				+ validValues + "]";
+	}
+
 }
