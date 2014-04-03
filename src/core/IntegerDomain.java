@@ -57,4 +57,8 @@ public class IntegerDomain extends Domain {
 		this.upperBoundary = upperBoundary;
 	}
 
+	public List<Integer> getValidValues() {
+		return validValues;
+	}
+
 }

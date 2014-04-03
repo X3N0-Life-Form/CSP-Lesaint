@@ -2,5 +2,5 @@ package algo;
 
 public interface Algorithm {
 
-	public void start();
+	public void start() throws AlgorithmException;
 }
