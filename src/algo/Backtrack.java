@@ -15,8 +15,8 @@ public class Backtrack implements Algorithm {
 	}
 
 	public boolean backtrack(CSP csp) throws AlgorithmException {
-		System.out.println("Recap:");
-		System.out.println(this);
+		//System.out.println("Recap:");
+		//System.out.println(this);
 		if (csp.isProblemSolved()) {
 			return true;
 		}
@@ -24,7 +24,7 @@ public class Backtrack implements Algorithm {
 		Variable var = null;
 		while ((var = csp.getUnsetVariable()) != null) {
 			Domain domain = csp.getVariables().get(var);
-			System.out.println("Domain: " + domain + "\n  var: " + var);
+			//System.out.println("Domain: " + domain + "\n  var: " + var);
 			if (domain instanceof IntegerDomain) {
 				IntegerDomain dom = (IntegerDomain) domain;
 				
@@ -41,10 +41,10 @@ public class Backtrack implements Algorithm {
 					
 					// deal with a list of values (if it exists)
 					if (dom.getValidValues() != null) {
-						System.out.println("Testing values " + dom.getValidValues());
+						//System.out.println("Testing values " + dom.getValidValues());
 						for (Integer value : dom.getValidValues()) {
 							var.setValue(value);
-							System.out.println("\t" + var);
+							//System.out.println("\t" + var);
 							if (backtrack(csp))
 								return true;
 						}

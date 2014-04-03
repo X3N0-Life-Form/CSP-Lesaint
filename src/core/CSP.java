@@ -60,6 +60,8 @@ public class CSP {
 		
 		// check constraints
 		for (Constraint constraint : constraints) {
+			System.out.println(constraint);
+			System.out.println("\t" + constraint.isConstraintValid());
 			if (!constraint.isConstraintValid()) {
 				return false;
 			}
