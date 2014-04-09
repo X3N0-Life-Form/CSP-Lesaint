@@ -111,6 +111,8 @@ public class TestsAC1 {
 	public void test_forbid_values_var_specific_range() {
 		d1.addForbiddenRange(5, 7, var_1);
 		assertTrue(d1.isValueForbidden(7, var_1));
+		System.out.println(d1);
+		assertFalse(d1.isValueForbidden(3, var_1));
 		assertFalse(d1.isValueForbidden(8, var_1));
 	}
 	

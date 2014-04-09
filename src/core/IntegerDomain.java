@@ -99,6 +99,28 @@ public class IntegerDomain extends Domain {
 		}
 		return false;
 	}
+	
+	/**
+	 * 
+	 * @param value
+	 * @param var
+	 * @return true if the value is forbidden.
+	 */
+	public boolean isValueForbidden(int value, Variable var) {
+		if (variableSpecificForbiddenValues.get(var) != null
+				&& variableSpecificForbiddenValues.get(var).contains(value)) {
+			return true;
+		} else if (variableSpecificForbiddenRanges.get(var) != null) {
+			for (Integer[] range : variableSpecificForbiddenRanges.get(var)) {
+				if (range[0] <= value && range[1] >= value) {
+					return true;
+				}
+			}
+			return false;
+		} else {
+			return false;
+		}
+	}
 
 	public int getLowerBoundary() {
 		return lowerBoundary;
@@ -160,9 +182,20 @@ public class IntegerDomain extends Domain {
 
 	@Override
 	public String toString() {
-		return "IntegerDomain [lowerBoundary=" + lowerBoundary
+		String string = "IntegerDomain [lowerBoundary=" + lowerBoundary
 				+ ", upperBoundary=" + upperBoundary + ", validValues="
-				+ validValues + "]";
+				+ validValues + "\nforbiddenValues=" + forbiddenValues
+				+ "\nforbiddenRanges=" + forbiddenRanges
+				+ "\nvariableSpecificForbiddenRanges=";
+		for (Variable var : variableSpecificForbiddenRanges.keySet()) {
+			string += "\n\t" + var;
+				for (Integer[] range : variableSpecificForbiddenRanges.get(var)) {
+					string += "\n\t\t[" + range[0] + ".." + range[1] + "]";
+				}
+		}
+				string += "\nvariableSpecificForbiddenValues="
+				+ variableSpecificForbiddenValues + "]";
+		return string;
 	}
 
 	/**
@@ -178,22 +211,6 @@ public class IntegerDomain extends Domain {
 			mockVar.setValue(value);
 			return includes(mockVar);
 		} catch (VariableException e) {
-			return false;
-		}
-	}
-
-	public boolean isValueForbidden(int value, Variable var) {
-		if (variableSpecificForbiddenValues.get(var) != null
-				&& variableSpecificForbiddenValues.get(var).contains(value)) {
-			return true;
-		} else if (variableSpecificForbiddenRanges.get(var) != null) {
-			for (Integer[] range : variableSpecificForbiddenRanges.get(var)) {
-				if (range[0] <= value || range[1] >= value) {
-					return true;
-				}
-			}
-			return false;
-		} else {
 			return false;
 		}
 	}
