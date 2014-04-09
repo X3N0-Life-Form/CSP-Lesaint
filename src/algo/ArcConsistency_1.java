@@ -1,7 +1,10 @@
 package algo;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import core.CSP;
@@ -15,14 +18,23 @@ import core.exceptions.DomainException;
 public class ArcConsistency_1 extends Algorithm {
 	
 	protected Set<Arc> arcs;
+	private Map<Domain, List<Integer>> toForbid;
 
 	public ArcConsistency_1(CSP csp) {
 		super(csp);
 		arcs = new HashSet<Arc>();
+		toForbid = new HashMap<Domain, List<Integer>>();
+		prepareToForbid();
 		prepareArcs();
 	}
 	
-	protected void prepareArcs() {
+	private void prepareToForbid() {
+		for (Domain domain : problem.getDomains()) {
+			toForbid.put(domain, new LinkedList<Integer>());
+		}
+	}
+	
+	private void prepareArcs() {
 		for (Variable var_1 : problem.getVariables().keySet()) {
 			for (Variable var_2 : problem.getVariables().keySet()) {
 				arcs.add(new Arc(var_1, var_2));
@@ -119,10 +131,12 @@ public class ArcConsistency_1 extends Algorithm {
 		// check every value in this domain's range
 		for (int i = d_left.getLowerBoundary(); i < d_left.getUpperBoundary(); i++) {
 			if (!d_right.includes(i) || verifyConstraint(c, d_left, d_right, i)) {
+				flagForForbiddation(i, d_right);
 				return true;
 			}
 		}
 
+		/* again, forget about this
 		if (d_left.getValidValues() != null) {
 			// check every value in this domain's value list
 			for (Integer value : d_left.getValidValues()) {
@@ -131,6 +145,7 @@ public class ArcConsistency_1 extends Algorithm {
 				}
 			}
 		}
+		*/
 
 		return false;
 	}
@@ -149,11 +164,12 @@ public class ArcConsistency_1 extends Algorithm {
 		switch (c.getType()) {
 		// nothing to do
 		case DIFFERENT:
-			
+			flagForForbiddation(d_leftValue, d_right);
+			return true;
 		case EQUAL:
-			break;
 		case INF_EQUAL:
 		case SUP_EQUAL:
+			// don't care, should already be covered by inclusion
 			return false;
 		// stuff to do
 		case SUP:
@@ -177,22 +193,27 @@ public class ArcConsistency_1 extends Algorithm {
 		return false;
 	}
 
-	protected void flagForForbiddation(int i, IntegerDomain d_right) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	/**
-	 * 
-	 * @param d_left
+	 * Flags a value so that it will be added to the forbidden values
+	 * when updateForbiddenValues() is called.
+	 * @param value
 	 * @param d_right
-	 * @return true if d_right doesn't include every value in d_left.
-	 * @throws DomainException
 	 */
-	protected boolean verifyInclusion(IntegerDomain d_left, IntegerDomain d_right)
-			throws DomainException {
-		
-		return false;
+	protected void flagForForbiddation(int value, IntegerDomain d_right) {
+		toForbid.get(d_right).add(value);
+	}
+	
+	/**
+	 * Adds new forbidden values to each domain, then clear the lists of values to forbid.
+	 */
+	protected void updateForbiddenValues() {
+		for (Domain domain : toForbid.keySet()) {
+			List<Integer> list = toForbid.get(domain);
+			for (Integer value : list) {
+				((IntegerDomain) domain).addForbiddenValue(value);
+			}
+			list.clear();
+		}
 	}
 
 	@Override

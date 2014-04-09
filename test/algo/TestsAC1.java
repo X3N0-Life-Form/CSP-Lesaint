@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.Set;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import core.CSP;
@@ -63,13 +64,6 @@ public class TestsAC1 {
 		AC1 = new ArcConsistency_1(csp);
 		
 	}
-
-	/* TODO to test:
-	 * checkArc
-	 * 	verifyDomain
-	 * 		verifyIntegerDomain
-	 * 			verifyConstraint
-	 */
 	
 	@Test
 	public void test_construction() {
@@ -91,8 +85,20 @@ public class TestsAC1 {
 		//TODO: test on something that should return false;
 	}
 	
+	/**
+	 * Tests flagForForbiddation & updateForbiddenValues.
+	 */
 	@Test
-	public void test_verifyDomains() {
-		
+	public void test_forbid_values() {
+		assertFalse(d1.isValueForbidden(4));
+		AC1.flagForForbiddation(4, d1);
+		AC1.updateForbiddenValues();
+		assertTrue(d1.isValueForbidden(4));
 	}
+	
+	/* TODO to test:
+	 * checkArc
+	 * 		verifyIntegerDomain
+	 * 			verifyConstraint
+	 */
 }
