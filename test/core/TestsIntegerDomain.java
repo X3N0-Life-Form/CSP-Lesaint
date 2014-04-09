@@ -13,7 +13,13 @@ import core.exceptions.DomainException;
 import core.exceptions.VariableException;
 
 public class TestsIntegerDomain {
+	/**
+	 * range = 0..10
+	 */
 	private IntegerDomain domain;
+	/**
+	 * list = {1, 15}
+	 */
 	private IntegerDomain domain_with_list;
 	
 	private Variable var_in;
@@ -50,5 +56,25 @@ public class TestsIntegerDomain {
 	@Test(expected=DomainException.class)
 	public void test_includes_KO() throws DomainException {
 		domain.includes(new Variable("something", VariableType.TEST_UNSUPPORTED));
+	}
+	
+	@Test
+	public void test_forbiddenRange() {
+		// not part of forbidden values
+		assertFalse(domain.isValueForbidden(10));
+		assertFalse(domain.isValueForbidden(1));
+		assertFalse(domain.isValueForbidden(-1));
+		assertFalse(domain.isValueForbidden(11));
+		assertFalse(domain_with_list.isValueForbidden(1));
+		assertFalse(domain_with_list.isValueForbidden(700));
+		// explicitly forbidden
+		domain.addForbiddenRange(2, 6);
+		assertTrue(domain.isValueForbidden(2));
+		assertTrue(domain.isValueForbidden(3));
+		assertTrue(domain.isValueForbidden(6));
+		assertFalse(domain.isValueForbidden(1));
+		assertFalse(domain.isValueForbidden(9));
+		domain.addForbiddenValue(9);
+		assertTrue(domain.isValueForbidden(9));
 	}
 }
