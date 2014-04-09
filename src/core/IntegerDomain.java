@@ -11,6 +11,9 @@ public class IntegerDomain extends Domain {
 
 	private int lowerBoundary = 0;
 	private int upperBoundary = Integer.MAX_VALUE;
+	/**
+	 * Warning: null by default.
+	 */
 	private List<Integer> validValues = null;
 	
 	private List<Integer> forbiddenValues;
@@ -105,6 +108,10 @@ public class IntegerDomain extends Domain {
 		this.upperBoundary = upperBoundary;
 	}
 
+	/**
+	 * Warning: null by default.
+	 * @return List of valid values.
+	 */
 	public List<Integer> getValidValues() {
 		return validValues;
 	}
@@ -127,6 +134,13 @@ public class IntegerDomain extends Domain {
 				+ validValues + "]";
 	}
 
+	/**
+	 * 
+	 * @param value
+	 * @return true if the specified value is included in this Domain.
+	 * @throws DomainException
+	 * @see {@link Domain}.includes()
+	 */
 	public boolean includes(int value) throws DomainException {
 		Variable mockVar = new Variable("mock", VariableType.INTEGER);
 		try {
