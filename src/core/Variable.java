@@ -9,6 +9,12 @@ public class Variable implements Comparable<Variable> {
 	private Object value;
 	private String name;
 	
+	/**
+	 * Instantiate a Variable. Note that, by default, it has no value.
+	 * Use setValue() to give it a value.
+	 * @param name
+	 * @param type
+	 */
 	public Variable(String name, VariableType type) {
 		this.setName(name);
 		this.type = type;
@@ -18,6 +24,11 @@ public class Variable implements Comparable<Variable> {
 		return type;
 	}
 	
+	/**
+	 * Sets this Variable's value.
+	 * @param value
+	 * @throws VariableException If the value is null or of an incorrect type.
+	 */
 	public void setValue(Object value) throws VariableException {
 		if (value == null) {
 			throw new VariableException("Passed a null reference");
@@ -69,6 +80,37 @@ public class Variable implements Comparable<Variable> {
 	public String toString() {
 		return "Variable [type=" + type + ", value=" + value + ", name=" + name
 				+ "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
+	}
+
+	/**
+	 * Note that this doesn't check the variable's value.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Variable other = (Variable) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (type != other.type)
+			return false;
+		return true;
 	}
 
 }

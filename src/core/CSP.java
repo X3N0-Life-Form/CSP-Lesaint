@@ -60,8 +60,8 @@ public class CSP {
 		
 		// check constraints
 		for (Constraint constraint : constraints) {
-			System.out.println(constraint);
-			System.out.println("\t" + constraint.isConstraintValid());
+			//System.out.println(constraint);
+			//System.out.println("\t" + constraint.isConstraintValid());
 			if (!constraint.isConstraintValid()) {
 				return false;
 			}
@@ -93,13 +93,35 @@ public class CSP {
 		for (Variable var : variables.keySet()) {
 			string += "\n\t" + var;
 		}
-		string += "\ndomains=" + domains;
+		string += "\ndomains=";
+		for (Domain d : domains) {
+			string += "\n\t" + d;
+		}
 		string += "\nconstraints="; 
 		for (Constraint c : constraints) {
 			string += "\n\t" + c;
 		}
 		string += "\n]";
 		return string;
+	}
+
+	public Domain getDomain(Variable var) {
+		return variables.get(var);
+	}
+
+	/**
+	 * Returns a list of constraints associated with the specified variable.
+	 * @param var
+	 * @return List<Constraint>
+	 */
+	public List<Constraint> getConstraints(Variable var) {
+		List<Constraint> list = new ArrayList<Constraint>();
+		for (Constraint c : constraints) {
+			if (c.concerns(var)) {
+				list.add(c);
+			}
+		}
+		return list;
 	}
 	
 	

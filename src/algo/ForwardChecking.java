@@ -1,6 +1,12 @@
 package algo;
 
-public class ForwardChecking implements Algorithm {
+import core.CSP;
+
+public class ForwardChecking extends Algorithm {
+
+	public ForwardChecking(CSP csp) {
+		super(csp);
+	}
 
 	@Override
 	public void start() {

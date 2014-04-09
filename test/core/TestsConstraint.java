@@ -75,4 +75,9 @@ public class TestsConstraint {
 		new Constraint(var_1, ConstraintType.DIFFERENT, var_unsupported);
 	}
 	
+	@Test
+	public void test_concerns() {
+		assertFalse(c_v1_diff_1.concerns(var_unsupported));
+		assertTrue(c_v1_diff_1.concerns(var_1));
+	}
 }

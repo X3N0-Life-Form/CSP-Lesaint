@@ -2,6 +2,8 @@ package core;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -72,4 +74,18 @@ public class TestsCSP {
 		assertFalse(csp.isProblemSolved());
 	}
 
+	@Test
+	public void test_getConstraints() {
+		setup_csp();
+		List<Constraint> list_1 = csp.getConstraints(var_1);
+		List<Constraint> list_2 = csp.getConstraints(var_2);
+		assertTrue(list_1.size() > 0);
+		assertTrue(list_2.size() > 0);
+		
+		assertTrue(list_1.contains(c1));
+		assertFalse(list_1.contains(c2));
+		
+		assertTrue(list_2.contains(c2));
+		assertFalse(list_2.contains(c1));
+	}
 }

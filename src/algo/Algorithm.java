@@ -1,6 +1,16 @@
 package algo;
 
-public interface Algorithm {
+import core.CSP;
 
-	public void start() throws AlgorithmException;
+public abstract class Algorithm {
+
+	protected CSP problem;
+	
+	public Algorithm(CSP csp) {
+		this.problem = csp;
+	}
+	
+	//TODO:timestamp things
+	
+	public abstract void start() throws AlgorithmException;
 }

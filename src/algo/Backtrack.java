@@ -6,12 +6,10 @@ import core.IntegerDomain;
 import core.Variable;
 import core.exceptions.VariableException;
 
-public class Backtrack implements Algorithm {
-	
-	private CSP problem;
-	
+public class Backtrack extends Algorithm {
+
 	public Backtrack(CSP csp) {
-		this.problem = csp;
+		super(csp);
 	}
 
 	public boolean backtrack(CSP csp) throws AlgorithmException {
@@ -30,13 +28,14 @@ public class Backtrack implements Algorithm {
 				
 				try {
 					// deal with a range of values
-					System.out.println("testing values " + dom.getLowerBoundary()
-							+ " through " + dom.getUpperBoundary());
+					//System.out.println("testing values " + dom.getLowerBoundary()
+					//		+ " through " + dom.getUpperBoundary());
 					for (int i = dom.getLowerBoundary(); i <= dom.getUpperBoundary(); i++) {
 							var.setValue(i);
-							System.out.println("\t" + var);
-							if (backtrack(csp))
+							//System.out.println("\t" + var);
+							if (backtrack(csp)) {
 								return true;
+							}
 					}
 					
 					// deal with a list of values (if it exists)
@@ -61,7 +60,16 @@ public class Backtrack implements Algorithm {
 	
 	@Override
 	public void start() throws AlgorithmException {
-		backtrack(problem);
+		System.out.println("CSP to solve: \n" + problem);
+		if (backtrack(problem)) {
+			 System.out.println("Solution:");
+			 for (Variable var : problem.getVariables().keySet()) {
+				 System.out.println("\n\t" + var);
+			 }
+		} else {
+			System.out.println("CSP could not be solved");
+		}
+		
 	}
 
 	@Override

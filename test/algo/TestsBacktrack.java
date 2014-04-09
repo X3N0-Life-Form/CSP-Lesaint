@@ -71,8 +71,11 @@ public class TestsBacktrack {
 
 	@Test
 	public void test() throws AlgorithmException {
+		assertFalse(csp.isProblemSolved());
+		//System.err.println(csp);
 		boolean result = bt.backtrack(csp);
 		assertTrue(result);
+		//System.out.println(csp);
 	}
 
 }

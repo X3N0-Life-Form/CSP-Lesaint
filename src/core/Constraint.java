@@ -68,11 +68,35 @@ public class Constraint {
 		}
 		return false;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Constraint [left=" + left + ", type=" + type + ", right="
 				+ right + ", value=" + value + "]";
 	}
+
+	/**
+	 * 
+	 * @param var
+	 * @return true if this Constraints concerns the specified Variable.
+	 */
+	public boolean concerns(Variable var) {
+		if (left.equals(var) || (right != null && right.equals(var))) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public Variable getLeft() {
+		return left;
+	}
 	
+	public Variable getRight() {
+		return right;
+	}
+
+	public ConstraintType getType() {
+		return type;
+	}
 }
