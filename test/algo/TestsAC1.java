@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.util.Set;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import core.CSP;
@@ -91,9 +90,20 @@ public class TestsAC1 {
 	@Test
 	public void test_forbid_values() {
 		assertFalse(d1.isValueForbidden(4));
+		assertFalse(AC1.getToForbid().get(d1).contains(4));
 		AC1.flagForForbiddation(4, d1);
+		assertTrue(AC1.getToForbid().get(d1).contains(4));
 		AC1.updateForbiddenValues();
+		assertFalse(AC1.getToForbid().get(d1).contains(4));
 		assertTrue(d1.isValueForbidden(4));
+	}
+	
+	
+	@Test
+	public void test_checkArc() throws DomainException {
+		Arc arc = new Arc(var_1, var_2);
+		assertTrue(AC1.checkArc(arc));
+		assertTrue(AC1.getToForbid().get(d1).contains(0));
 	}
 	
 	/* TODO to test:
@@ -101,4 +111,11 @@ public class TestsAC1 {
 	 * 		verifyIntegerDomain
 	 * 			verifyConstraint
 	 */
+	
+	@Test
+	public void test_AC1() throws DomainException {
+		assertTrue(d1.includes(0));
+		AC1.AC1(csp);
+		assertFalse(d1.includes(0));
+	}
 }

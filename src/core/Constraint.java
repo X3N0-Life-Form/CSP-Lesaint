@@ -99,4 +99,8 @@ public class Constraint {
 	public ConstraintType getType() {
 		return type;
 	}
+
+	public Object getValue() {
+		return value;
+	}
 }

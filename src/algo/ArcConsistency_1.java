@@ -1,5 +1,6 @@
 package algo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -47,16 +48,20 @@ public class ArcConsistency_1 extends Algorithm {
 		boolean finished = false;
 		do {
 			finished = true;
+			List<Arc> toRemove = new ArrayList<Arc>(arcs.size());
 			for (Arc arc : arcs) {
 				try {
 					if (checkArc(arc)) {
-						//delete / save values to avoid TODO
+						updateForbiddenValues();
+						toRemove.add(arc);//is that right?
 						finished = false;
 					}
 				} catch (DomainException e) {
-					// what do if some domain is fucked up? TODO
+					// this arc doesn't make sense, remove it
+					toRemove .add(arc);
 				}
 			}
+			arcs.removeAll(toRemove);
 		} while(!finished);
 	}
 
@@ -78,6 +83,8 @@ public class ArcConsistency_1 extends Algorithm {
 		for (Constraint c : c_list_1) {
 			if (c.concerns(var_2)) {
 				return verifyDomains(c, d1, d2);
+			} else if (c.getRight() == null) { //is a value-based constraint
+				return verifyDomain(c, d1);
 			}
 		}
 		
@@ -85,11 +92,38 @@ public class ArcConsistency_1 extends Algorithm {
 		for (Constraint c : c_list_2) {
 			if (c.concerns(var_1)) {
 				return verifyDomains(c, d2, d1);
+			} else if (c.getRight() == null) {
+				return verifyDomain(c, d2);
 			}
 		}
 		
-		// check value-based constraints?
-		
+		return false;
+	}
+
+	/**
+	 * 
+	 * @param c
+	 * @param domain
+	 * @return true if there are values that can be axed.
+	 */
+	protected boolean verifyDomain(Constraint c, Domain domain) {
+		int value = (int) c.getValue();
+		//TODO forbid shit for this variable only
+		switch (c.getType()) {
+		case DIFFERENT:
+			//flagForForbiddation(value, (IntegerDomain) domain, c.getLeft()); 
+			//return true;
+		case EQUAL:
+			break;
+		case INF:
+			break;
+		case INF_EQUAL:
+			break;
+		case SUP:
+			break;
+		case SUP_EQUAL:
+			break;
+		}
 		return false;
 	}
 
@@ -131,7 +165,7 @@ public class ArcConsistency_1 extends Algorithm {
 		// check every value in this domain's range
 		for (int i = d_left.getLowerBoundary(); i < d_left.getUpperBoundary(); i++) {
 			if (!d_right.includes(i) || verifyConstraint(c, d_left, d_right, i)) {
-				flagForForbiddation(i, d_right);
+				//flagForForbiddation(i, d_right);
 				return true;
 			}
 		}
@@ -224,6 +258,10 @@ public class ArcConsistency_1 extends Algorithm {
 	
 	public Set<Arc> getArcs() {
 		return arcs;
+	}
+
+	public Map<Domain, List<Integer>> getToForbid() {
+		return toForbid;
 	}
 
 }
