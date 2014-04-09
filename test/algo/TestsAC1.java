@@ -99,6 +99,22 @@ public class TestsAC1 {
 	}
 	
 	@Test
+	public void test_forbid_values_var_specific_singleValue() {
+		assertFalse(d1.isValueForbidden(7, var_1));
+		assertFalse(d1.isValueForbidden(7));
+		d1.addForbiddenValue(7, var_1);
+		assertTrue(d1.isValueForbidden(7, var_1));
+		assertFalse(d1.isValueForbidden(7));
+	}
+	
+	@Test
+	public void test_forbid_values_var_specific_range() {
+		d1.addForbiddenRange(5, 7, var_1);
+		assertTrue(d1.isValueForbidden(7, var_1));
+		assertFalse(d1.isValueForbidden(8, var_1));
+	}
+	
+	@Test
 	public void test_checkArc() throws DomainException {
 		Arc arc = new Arc(var_1, var_2);
 		assertTrue(AC1.checkArc(arc));

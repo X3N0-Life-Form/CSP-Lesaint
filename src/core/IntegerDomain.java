@@ -182,4 +182,20 @@ public class IntegerDomain extends Domain {
 		}
 	}
 
+	public boolean isValueForbidden(int value, Variable var) {
+		if (variableSpecificForbiddenValues.get(var) != null
+				&& variableSpecificForbiddenValues.get(var).contains(value)) {
+			return true;
+		} else if (variableSpecificForbiddenRanges.get(var) != null) {
+			for (Integer[] range : variableSpecificForbiddenRanges.get(var)) {
+				if (range[0] <= value || range[1] >= value) {
+					return true;
+				}
+			}
+			return false;
+		} else {
+			return false;
+		}
+	}
+
 }
