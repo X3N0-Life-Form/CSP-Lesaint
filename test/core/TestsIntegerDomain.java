@@ -77,4 +77,24 @@ public class TestsIntegerDomain {
 		domain.addForbiddenValue(9);
 		assertTrue(domain.isValueForbidden(9));
 	}
+	
+	@Test
+	public void test_includes_forbiddenValue() throws VariableException, DomainException {
+		//single value
+		Variable var = new Variable("test_var", VariableType.INTEGER);
+		var.setValue(2);
+		assertTrue(domain.includes(var));
+		domain.addForbiddenValue(2);
+		assertFalse(domain.includes(var));
+		
+		assertTrue(domain_with_list.includes(1));
+		domain_with_list.addForbiddenValue(1);
+		assertFalse(domain_with_list.includes(1));
+		
+		//range
+		assertTrue(domain.includes(3));
+		domain.addForbiddenRange(3, 7);
+		assertFalse(domain.includes(3));
+		assertTrue(domain.includes(8));
+	}
 }
