@@ -28,5 +28,40 @@ public class Arc {
 		this.var_2 = var_2;
 	}
 
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((var_1 == null) ? 0 : var_1.hashCode());
+		result = prime * result + ((var_2 == null) ? 0 : var_2.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Arc other = (Arc) obj;
+		if (var_1 == null) {
+			if (other.var_1 != null)
+				return false;
+		} else if (!var_1.equals(other.var_1))
+			return false;
+		if (var_2 == null) {
+			if (other.var_2 != null)
+				return false;
+		} else if (!var_2.equals(other.var_2))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Arc [var_1=" + var_1 + ", var_2=" + var_2 + "]";
+	}
+
 }
