@@ -12,6 +12,7 @@ public class Backtrack extends Algorithm {
 		super(csp);
 	}
 
+	// gen & test?
 	public boolean backtrack(CSP csp) throws AlgorithmException {
 		//System.out.println("Recap:");
 		//System.out.println(this);
