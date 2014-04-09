@@ -83,18 +83,18 @@ public class ArcConsistency_1 extends Algorithm {
 		for (Constraint c : c_list_1) {
 			if (c.concerns(var_2)) {
 				return verifyDomains(c, d1, d2);
-			} else if (c.getRight() == null) { //is a value-based constraint
-				return verifyDomain(c, d1);
-			}
+			}/* else if (c.getRight() == null) { //is a value-based constraint
+				return verifyDomain(c, d1);TODO
+			}*/
 		}
 		
 		// check var_2's constraints
 		for (Constraint c : c_list_2) {
 			if (c.concerns(var_1)) {
 				return verifyDomains(c, d2, d1);
-			} else if (c.getRight() == null) {
+			}/* else if (c.getRight() == null) {
 				return verifyDomain(c, d2);
-			}
+			}*/
 		}
 		
 		return false;
@@ -111,18 +111,27 @@ public class ArcConsistency_1 extends Algorithm {
 		//TODO forbid shit for this variable only
 		switch (c.getType()) {
 		case DIFFERENT:
-			//flagForForbiddation(value, (IntegerDomain) domain, c.getLeft()); 
-			//return true;
+			flagForForbiddation(value, (IntegerDomain) domain, c.getLeft()); 
+			return true;
 		case EQUAL:
-			break;
+			flagForForbiddationNot(value, (IntegerDomain) domain, c.getLeft());
+			return true;
 		case INF:
-			break;
+			flagForForbiddationRange(value, ((IntegerDomain)domain).getUpperBoundary(),
+					(IntegerDomain) domain, c.getLeft());
+			return true;
 		case INF_EQUAL:
-			break;
+			flagForForbiddationRange(value + 1, ((IntegerDomain)domain).getUpperBoundary(),
+					(IntegerDomain) domain, c.getLeft());
+			return true;
 		case SUP:
-			break;
+			flagForForbiddationRange(((IntegerDomain)domain).getLowerBoundary(), value,
+					(IntegerDomain) domain, c.getLeft());
+			return true;
 		case SUP_EQUAL:
-			break;
+			flagForForbiddationRange(((IntegerDomain)domain).getLowerBoundary(), value - 1,
+					(IntegerDomain) domain, c.getLeft());
+			return true;
 		}
 		return false;
 	}
@@ -235,6 +244,28 @@ public class ArcConsistency_1 extends Algorithm {
 	 */
 	protected void flagForForbiddation(int value, IntegerDomain d_right) {
 		toForbid.get(d_right).add(value);
+	}
+	
+	protected void flagForForbiddationRange(int lowerBoundary, int upperBoundary,
+			IntegerDomain domain, Variable var) {//TODO: don't add directly?
+		domain.addForbiddenRange(lowerBoundary, upperBoundary, var);
+	}
+
+	/**
+	 * Forbid everything that's not the value for the specified variable.
+	 * @param value
+	 * @param domain
+	 * @param var
+	 */
+	protected void flagForForbiddationNot(int value, IntegerDomain domain,
+			Variable var) {//TODO see above
+		domain.addForbiddenRange(domain.getLowerBoundary(), value - 1, var);
+		domain.addForbiddenRange(value + 1, domain.getUpperBoundary(), var);
+	}
+
+	protected void flagForForbiddation(int value, IntegerDomain domain,
+			Variable var) {//TODO see above
+		domain.addForbiddenValue(value, var);
 	}
 	
 	/**

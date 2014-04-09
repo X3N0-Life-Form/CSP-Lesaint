@@ -98,19 +98,12 @@ public class TestsAC1 {
 		assertTrue(d1.isValueForbidden(4));
 	}
 	
-	
 	@Test
 	public void test_checkArc() throws DomainException {
 		Arc arc = new Arc(var_1, var_2);
 		assertTrue(AC1.checkArc(arc));
 		assertTrue(AC1.getToForbid().get(d1).contains(0));
 	}
-	
-	/* TODO to test:
-	 * checkArc
-	 * 		verifyIntegerDomain
-	 * 			verifyConstraint
-	 */
 	
 	@Test
 	public void test_AC1() throws DomainException {

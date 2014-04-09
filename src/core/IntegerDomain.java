@@ -1,7 +1,10 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import core.enums.VariableType;
 import core.exceptions.DomainException;
@@ -19,10 +22,15 @@ public class IntegerDomain extends Domain {
 	private List<Integer> forbiddenValues;
 	private List<Integer[]> forbiddenRanges;
 	
+	private Map<Variable, List<Integer[]>> variableSpecificForbiddenRanges;
+	private Map<Variable, List<Integer>> variableSpecificForbiddenValues;
+	
 	/**
 	 * Constructs an empty Domain.
 	 */
 	public IntegerDomain() {
+		variableSpecificForbiddenRanges = new HashMap<Variable, List<Integer[]>>();
+		variableSpecificForbiddenValues = new HashMap<Variable, List<Integer>>();
 		forbiddenValues = new ArrayList<Integer>();
 		forbiddenRanges = new ArrayList<Integer[]>();
 	}
@@ -125,6 +133,29 @@ public class IntegerDomain extends Domain {
 		range[0] = lowerBoundary;
 		range[1] = upperBoundary;
 		forbiddenRanges.add(range);
+	}
+	
+	/**
+	 * Note: we assume that var is of the correct type & domain.
+	 * @param lowerBoundary
+	 * @param upperBoundary
+	 * @param var
+	 */
+	public void addForbiddenRange(int lowerBoundary, int upperBoundary, Variable var) {
+		Integer[] range = new Integer[2];
+		range[0] = lowerBoundary;
+		range[1] = upperBoundary;
+		if (variableSpecificForbiddenRanges.get(var) == null) {
+			variableSpecificForbiddenRanges.put(var, new LinkedList<Integer[]>());
+		}
+		variableSpecificForbiddenRanges.get(var).add(range);
+	}
+	
+	public void addForbiddenValue(int value, Variable var) {
+		if (variableSpecificForbiddenValues.get(var) == null) {
+			variableSpecificForbiddenValues.put(var, new LinkedList<Integer>());
+		}
+		variableSpecificForbiddenValues.get(var).add(value);
 	}
 
 	@Override
