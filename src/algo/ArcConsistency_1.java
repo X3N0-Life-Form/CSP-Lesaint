@@ -76,13 +76,15 @@ public class ArcConsistency_1 extends Algorithm {
 			}
 		}
 		
-		// check value-based constraints
+		// check value-based constraints?
 		
 		return false;
 	}
 
 	/**
-	 * Note: returns false for unsupported Variable types
+	 * Note: returns false for unsupported Variable types.
+	 * We assume that the domains passed to this methods are
+	 * correct, ie. var_1 & var_2 are part of d_left & d_right, respectively.
 	 * @param c
 	 * @param d_left
 	 * @param d_right
@@ -104,7 +106,7 @@ public class ArcConsistency_1 extends Algorithm {
 	}
 
 	/**
-	 * 
+	 * Verify whether something's got to be done.
 	 * @param c
 	 * @param d_left
 	 * @param d_right
@@ -114,16 +116,82 @@ public class ArcConsistency_1 extends Algorithm {
 	 */
 	protected boolean verifyIntegerDomains(Constraint c, IntegerDomain d_left,
 			IntegerDomain d_right) throws DomainException {
+		// check every value in this domain's range
 		for (int i = d_left.getLowerBoundary(); i < d_left.getUpperBoundary(); i++) {
-			if (!d_right.includes(i)) {
+			if (!d_right.includes(i) || verifyConstraint(c, d_left, d_right, i)) {
 				return true;
 			}
 		}
-		for (Integer value : d_left.getValidValues()) {
-			if (!d_right.includes(value)) {
-				return true;
+
+		if (d_left.getValidValues() != null) {
+			// check every value in this domain's value list
+			for (Integer value : d_left.getValidValues()) {
+				if (!d_right.includes(value) || verifyConstraint(c, d_left, d_right, value)) {
+					return true;
+				}
 			}
 		}
+
+		return false;
+	}
+
+	/**
+	 * 
+	 * @param c
+	 * @param d_left
+	 * @param d_right
+	 * @param d_leftValue
+	 * @return
+	 */
+	protected boolean verifyConstraint(Constraint c, IntegerDomain d_left,
+			IntegerDomain d_right, Integer d_leftValue) {
+		//note: forget about the damn validValueList thingy, it's not required
+		switch (c.getType()) {
+		// nothing to do
+		case DIFFERENT:
+			
+		case EQUAL:
+			break;
+		case INF_EQUAL:
+		case SUP_EQUAL:
+			return false;
+		// stuff to do
+		case SUP:
+			for (int i = d_right.getLowerBoundary(); i <= d_right.getUpperBoundary(); i++) {
+				if (!d_right.isValueForbidden(i) && i == d_leftValue) {
+					flagForForbiddation(i, d_right);
+					return true;
+				}
+			}
+			break;
+		case INF:
+			for (int i = d_right.getUpperBoundary(); i >= d_right.getLowerBoundary(); i--) {
+				// the first not forbidden value should get forbidden
+				if (!d_right.isValueForbidden(i) && i == d_leftValue) {
+					flagForForbiddation(i, d_right);
+					return true;
+				}
+			}
+			break;
+		}
+		return false;
+	}
+
+	protected void flagForForbiddation(int i, IntegerDomain d_right) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * 
+	 * @param d_left
+	 * @param d_right
+	 * @return true if d_right doesn't include every value in d_left.
+	 * @throws DomainException
+	 */
+	protected boolean verifyInclusion(IntegerDomain d_left, IntegerDomain d_right)
+			throws DomainException {
+		
 		return false;
 	}
 
@@ -131,6 +199,10 @@ public class ArcConsistency_1 extends Algorithm {
 	public void start() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public Set<Arc> getArcs() {
+		return arcs;
 	}
 
 }
