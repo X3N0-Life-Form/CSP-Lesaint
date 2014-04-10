@@ -19,9 +19,9 @@ public abstract class Algorithm {
 	 * 
 	 * @return true if this algorithm's CSP has been solved.
 	 */
-	//public boolean isSolved() {
-	//	return problem.isProblemSolved();
-	//}
+	/*public boolean isSolved() {
+		return problem.isProblemSolved();
+	}/**/
 	
 	/**
 	 * Add an algorithm that will be executed before this one.
