@@ -15,6 +15,7 @@ import core.arcs.Arc;
 import core.enums.ConstraintType;
 import core.enums.VariableType;
 import core.exceptions.DomainException;
+import core.exceptions.VariableException;
 
 public class TestsAC1 {
 
@@ -111,7 +112,6 @@ public class TestsAC1 {
 	public void test_forbid_values_var_specific_range() {
 		d1.addForbiddenRange(5, 7, var_1);
 		assertTrue(d1.isValueForbidden(7, var_1));
-		System.out.println(d1);
 		assertFalse(d1.isValueForbidden(3, var_1));
 		assertFalse(d1.isValueForbidden(8, var_1));
 	}
@@ -120,13 +120,19 @@ public class TestsAC1 {
 	public void test_checkArc() throws DomainException {
 		Arc arc = new Arc(var_1, var_2);
 		assertTrue(AC1.checkArc(arc));
-		assertTrue(AC1.getToForbid().get(d1).contains(0));
+		//assertTrue(AC1.getToForbid().get(d1).contains(0));
 	}
 	
 	@Test
-	public void test_AC1() throws DomainException {
+	public void test_AC1() throws DomainException, VariableException {
 		assertTrue(d1.includes(0));
+		var_1.setValue(6);
+		assertTrue(d1.includes(var_1));
 		AC1.AC1(csp);
 		assertFalse(d1.includes(0));
+		// reset value
+		var_1.setValue(6);
+		assertFalse(d1.includes(var_1));
+		assertTrue(d1.includes(6));
 	}
 }

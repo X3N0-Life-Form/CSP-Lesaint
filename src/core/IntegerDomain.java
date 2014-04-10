@@ -73,6 +73,8 @@ public class IntegerDomain extends Domain {
 			return false;
 		} else if (isValueForbidden(value)) {
 			return false;
+		} else if (isValueForbidden(value, var)) {
+			return false;
 		} else {
 			return true;
 		}

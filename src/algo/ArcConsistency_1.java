@@ -83,18 +83,18 @@ public class ArcConsistency_1 extends Algorithm {
 		for (Constraint c : c_list_1) {
 			if (c.concerns(var_2)) {
 				return verifyDomains(c, d1, d2);
-			}/* else if (c.getRight() == null) { //is a value-based constraint
-				return verifyDomain(c, d1);TODO
-			}*/
+			} else if (c.getRight() == null) { //is a value-based constraint
+				return verifyDomain(c, d1);
+			}
 		}
 		
 		// check var_2's constraints
 		for (Constraint c : c_list_2) {
 			if (c.concerns(var_1)) {
 				return verifyDomains(c, d2, d1);
-			}/* else if (c.getRight() == null) {
+			} else if (c.getRight() == null) {
 				return verifyDomain(c, d2);
-			}*/
+			}
 		}
 		
 		return false;
