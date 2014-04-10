@@ -282,9 +282,14 @@ public class ArcConsistency_1 extends Algorithm {
 	}
 
 	@Override
-	public void start() {
-		// TODO Auto-generated method stub
-		
+	public void start() throws AlgorithmException {
+		super.start();
+		AC1(problem);
+	}
+	
+	@Override
+	public String getName() {
+		return "### Arc Consistency 1 ###";
 	}
 	
 	public Set<Arc> getArcs() {

@@ -14,4 +14,10 @@ public class ArcConsistency_3 extends Algorithm {
 		
 	}
 
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

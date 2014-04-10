@@ -61,6 +61,7 @@ public class Backtrack extends Algorithm {
 	
 	@Override
 	public void start() throws AlgorithmException {
+		super.start();
 		System.out.println("CSP to solve: \n" + problem);
 		if (backtrack(problem)) {
 			 System.out.println("Solution:");
@@ -76,6 +77,11 @@ public class Backtrack extends Algorithm {
 	@Override
 	public String toString() {
 		return "Backtrack [problem=" + problem + "]";
+	}
+	
+	@Override
+	public String getName() {
+		return "### BACKTRACK ###";
 	}
 
 }

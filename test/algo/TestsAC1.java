@@ -22,8 +22,17 @@ public class TestsAC1 {
 	private ArcConsistency_1 AC1;
 	
 	private CSP csp;
+	/**
+	 * d1
+	 */
 	private Variable var_1;
+	/**
+	 * d1
+	 */
 	private Variable var_2;
+	/**
+	 * d2
+	 */
 	private Variable var_3;
 	/**
 	 * var_1 & var_2; 0..15
