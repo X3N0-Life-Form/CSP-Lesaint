@@ -41,17 +41,15 @@ public class Constraint {
 		if (left == null || left.getValue() == null) {
 			return false;
 		} else if (right != null) {
-			//System.out.println(left + " compared to " + right);
 			comparison = left.compareTo(right);
 		} else {
 			try {
-				//System.out.println(left.getValue() + " compared to " + value);
 				comparison = left.compareToValue(value);
 			} catch (VariableException e) {
 				return false;
 			}
 		}
-		//System.out.println("comp result=" + comparison + "(type=" + type + ")");
+		
 		switch (type) {
 		case DIFFERENT:
 			return comparison != 0;
@@ -76,7 +74,7 @@ public class Constraint {
 	}
 
 	/**
-	 * 
+	 * Tests whether the specified Variable concerns this Constraint.
 	 * @param var
 	 * @return true if this Constraints concerns the specified Variable.
 	 */

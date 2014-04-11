@@ -60,8 +60,6 @@ public class CSP {
 		
 		// check constraints
 		for (Constraint constraint : constraints) {
-			//System.out.println(constraint);
-			//System.out.println("\t" + constraint.isConstraintValid());
 			if (!constraint.isConstraintValid()) {
 				return false;
 			}
@@ -79,11 +77,6 @@ public class CSP {
 				return var;
 			}
 		}
-		return null;
-	}
-	
-	@Deprecated
-	public List<Variable> getVariablesFromDomain(Domain domain) {
 		return null;
 	}
 
@@ -122,6 +115,51 @@ public class CSP {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((constraints == null) ? 0 : constraints.hashCode());
+		result = prime * result + ((domains == null) ? 0 : domains.hashCode());
+		result = prime * result
+				+ ((variables == null) ? 0 : variables.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CSP other = (CSP) obj;
+		if (constraints == null) {
+			if (other.constraints != null)
+				return false;
+		} else if (!constraints.equals(other.constraints))
+			return false;
+		if (domains == null) {
+			if (other.domains != null)
+				return false;
+		} else if (!domains.equals(other.domains))
+			return false;
+		if (variables == null) {
+			if (other.variables != null)
+				return false;
+		} else if (!variables.equals(other.variables))
+			return false;
+		return true;
+	}
+
+	public void printVariables() {
+		for (Variable var : variables.keySet()) {
+			System.out.println(var);
+		}
 	}
 	
 	

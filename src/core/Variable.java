@@ -51,15 +51,28 @@ public class Variable implements Comparable<Variable> {
 		this.name = name;
 	}
 
+	/**
+	 * Compare the Variable's values. A Variable with a value is considered
+	 * to be greater than a Variable without one.
+	 * <br />In the case of two null values, the variables' names are compared instead.
+	 */
 	@Override
 	public int compareTo(Variable anotherVariable) {
-		switch (type) {
-		case INTEGER:
-			return ((Integer) this.value).compareTo((Integer) anotherVariable.value);
-		case TEST_UNSUPPORTED:
+		if (this.value == null && anotherVariable.value == null) {
+			return this.name.compareTo(anotherVariable.name);
+		} else if (this.value != null && anotherVariable.value == null) {
+			return 1;
+		} else if (this.value == null && anotherVariable.value != null) {
+			return -1;
+		} else {
+			switch (type) {
+			case INTEGER:
+				return ((Integer) this.value).compareTo((Integer) anotherVariable.value);
+			case TEST_UNSUPPORTED:
+				return 0;
+			}
 			return 0;
 		}
-		return 0;
 	}
 
 	public int compareToValue(Object value2) throws VariableException {
@@ -67,7 +80,9 @@ public class Variable implements Comparable<Variable> {
 		case INTEGER:
 			if (value2 instanceof Integer) {
 				return ((Integer) this.value).compareTo((Integer) value2);
-			} else {
+			} else if (value2 == null) {
+				throw new VariableException("Received a null value.");
+			}else {
 				throw new VariableException("Invalid value type, expected " + type + ", received " + value2.getClass());
 			}
 		case TEST_UNSUPPORTED:

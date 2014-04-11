@@ -69,14 +69,21 @@ public class TestsBacktrack {
 	public void tearDown() throws Exception {
 	}
 
+	/**
+	 * For the record:
+	 * <br />Variable [type=INTEGER, value=-8, name=var_3]
+	 * <br />Variable [type=INTEGER, value=0, name=var_1]
+	 * <br />Variable [type=INTEGER, value=1, name=var_2]
+	 * @throws AlgorithmException
+	 */
 	@Test
 	public void test() throws AlgorithmException {
 		assertFalse(csp.isProblemSolved());
-		//System.err.println(csp);
 		boolean result = bt.backtrack(csp);
-		System.out.println(csp);
 		assertTrue(result);
-		//System.out.println(csp);
+		assertEquals(-8, var_3.getValue());
+		assertEquals(0, var_1.getValue());
+		assertEquals(1, var_2.getValue());
 	}
 	
 	
