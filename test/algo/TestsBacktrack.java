@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import core.CSP;
@@ -39,7 +40,6 @@ public class TestsBacktrack {
 	private Constraint c_v2_sup_v1;
 	private Constraint c_v3_inf_7;
 	
-
 	@Before
 	public void setUp() throws Exception {
 		var_1 = new Variable("var_1", VariableType.INTEGER);
@@ -86,11 +86,11 @@ public class TestsBacktrack {
 		assertEquals(1, var_2.getValue());
 	}
 	
-	
-	/*@Test
+	@Ignore
+	@Test
 	public void test_start() throws AlgorithmException {
-		//bt.start();
-		//assertTrue(csp.isProblemSolved());
-	}/**/
+		bt.start();
+		assertTrue(csp.isProblemSolved());
+	}
 
 }

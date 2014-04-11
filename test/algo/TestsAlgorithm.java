@@ -108,6 +108,7 @@ public class TestsAlgorithm {
 		assertFalse(a_3.gotExecd);
 	}
 	
+	@Ignore
 	@Test
 	public void test_proofThatThisThingIsSolvable() throws AlgorithmException {
 		backtrack.start();
@@ -118,7 +119,7 @@ public class TestsAlgorithm {
 	@Test
 	public void test_AC1_Backtrack() throws AlgorithmException {
 		backtrack.addBeforeAlgorithm(AC1);
-		//backtrack.start();
+		backtrack.start();
 		//assertTrue(backtrack.isSolved());
 	}
 
