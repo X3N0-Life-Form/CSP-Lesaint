@@ -10,7 +10,7 @@ import core.enums.VariableType;
 import core.exceptions.DomainException;
 import core.exceptions.VariableException;
 
-public class IntegerDomain extends Domain {
+public class IntegerDomain extends Domain implements Comparable<IntegerDomain> {
 
 	private int lowerBoundary = 0;
 	private int upperBoundary = Integer.MAX_VALUE;
@@ -215,6 +215,86 @@ public class IntegerDomain extends Domain {
 		} catch (VariableException e) {
 			return false;
 		}
+	}
+
+	@Override
+	public int compareTo(IntegerDomain domain) {
+		return this.size() - domain.size();
+	}
+
+	@Override
+	public int size() {
+		int size = (upperBoundary - lowerBoundary);
+		if (validValues != null) {
+			size += validValues.size();
+		}
+		return size;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((forbiddenRanges == null) ? 0 : forbiddenRanges.hashCode());
+		result = prime * result
+				+ ((forbiddenValues == null) ? 0 : forbiddenValues.hashCode());
+		result = prime * result + lowerBoundary;
+		result = prime * result + upperBoundary;
+		result = prime * result
+				+ ((validValues == null) ? 0 : validValues.hashCode());
+		result = prime
+				* result
+				+ ((variableSpecificForbiddenRanges == null) ? 0
+						: variableSpecificForbiddenRanges.hashCode());
+		result = prime
+				* result
+				+ ((variableSpecificForbiddenValues == null) ? 0
+						: variableSpecificForbiddenValues.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		IntegerDomain other = (IntegerDomain) obj;
+		if (forbiddenRanges == null) {
+			if (other.forbiddenRanges != null)
+				return false;
+		} else if (!forbiddenRanges.equals(other.forbiddenRanges))
+			return false;
+		if (forbiddenValues == null) {
+			if (other.forbiddenValues != null)
+				return false;
+		} else if (!forbiddenValues.equals(other.forbiddenValues))
+			return false;
+		if (lowerBoundary != other.lowerBoundary)
+			return false;
+		if (upperBoundary != other.upperBoundary)
+			return false;
+		if (validValues == null) {
+			if (other.validValues != null)
+				return false;
+		} else if (!validValues.equals(other.validValues))
+			return false;
+		if (variableSpecificForbiddenRanges == null) {
+			if (other.variableSpecificForbiddenRanges != null)
+				return false;
+		} else if (!variableSpecificForbiddenRanges
+				.equals(other.variableSpecificForbiddenRanges))
+			return false;
+		if (variableSpecificForbiddenValues == null) {
+			if (other.variableSpecificForbiddenValues != null)
+				return false;
+		} else if (!variableSpecificForbiddenValues
+				.equals(other.variableSpecificForbiddenValues))
+			return false;
+		return true;
 	}
 
 }
