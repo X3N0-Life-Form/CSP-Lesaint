@@ -1,0 +1,43 @@
+;;
+;; this is the CSP used in most tests
+;;
+#Domains
+$Domain:	d1
+	+lowerBoundary:	0
+	+upperBoundary:	15
+
+$Domain:	d2
+	+lowerBoundary:	-8
+	+upperBoundary:	8
+
+#Variables
+$Variable:	var_1
+	+domain:	d1
+
+$Variable:	var_2
+	+domain:	d1
+
+$Variable:	var_3
+	+domain:	d2
+
+#Constraints
+;; valid types are: EQUAL, DIFFERENT, INF, INF_EQUAL, SUP, SUP_EQUAL;
+$Constraint:	c_v1_inf_5
+;; no blank line needed here
+	+variable:	var_1
+	+type:		INF
+	+value:		5
+	
+$Constraint:	c_v2_sup_v1
+;; blank line required
+	+variable:	var_2
+	+type:		SUP
+	+second:	var_1
+	
+$Constraint:	c_v3_inf_7
+;; fracking java
+	+variable:	var_3
+	+type:		INF
+	+value:		7
+
+#End
