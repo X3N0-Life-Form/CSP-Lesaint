@@ -3,21 +3,26 @@
 ;;
 #Domains
 $Domain:	d1
+;; no blank line needed here, but let's put one for consistency
 	+lowerBoundary:	0
 	+upperBoundary:	15
 
 $Domain:	d2
+
 	+lowerBoundary:	-8
 	+upperBoundary:	8
 
 #Variables
 $Variable:	var_1
+;; blank
 	+domain:	d1
 
 $Variable:	var_2
+;; blank
 	+domain:	d1
 
 $Variable:	var_3
+;; blank
 	+domain:	d2
 
 #Constraints

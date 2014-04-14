@@ -69,8 +69,34 @@ public class Constraint {
 	
 	@Override
 	public String toString() {
-		return "Constraint [left=" + left + ", type=" + type + ", right="
-				+ right + ", value=" + value + "]";
+		String string = "Constraint [" + left.getName() + " ";
+		switch (type) {
+		case DIFFERENT:
+			string += "!=";
+			break;
+		case EQUAL:
+			string += "==";
+			break;
+		case INF:
+			string += "<";
+			break;
+		case INF_EQUAL:
+			string += "<=";
+			break;
+		case SUP:
+			string += ">";
+			break;
+		case SUP_EQUAL:
+			string += ">=";
+			break;
+		}
+		if (right != null) {
+			string += " " + right.getName();
+		} else {
+			string += " " + value;
+		}
+		string += "]";
+		return string;
 	}
 
 	/**

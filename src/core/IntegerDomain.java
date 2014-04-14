@@ -184,19 +184,31 @@ public class IntegerDomain extends Domain implements Comparable<IntegerDomain> {
 
 	@Override
 	public String toString() {
-		String string = "IntegerDomain [lowerBoundary=" + lowerBoundary
-				+ ", upperBoundary=" + upperBoundary + ", validValues="
-				+ validValues + "\nforbiddenValues=" + forbiddenValues
-				+ "\nforbiddenRanges=" + forbiddenRanges
-				+ "\nvariableSpecificForbiddenRanges=";
-		for (Variable var : variableSpecificForbiddenRanges.keySet()) {
-			string += "\n\t" + var;
+		String string = "IntegerDomain [name=" + name + ", lowerBoundary="
+				+ lowerBoundary + ", upperBoundary=" + upperBoundary;
+		if (validValues != null) {
+			string += ", validValues=" + validValues;
+		}
+		if (!forbiddenValues.isEmpty()) {
+			string += "\nforbiddenValues=" + forbiddenValues;
+		}
+		if (!forbiddenRanges.isEmpty()) {
+			string += "\nforbiddenRanges=" + forbiddenRanges;
+		}
+		if (!variableSpecificForbiddenRanges.isEmpty()) {
+			string += "\nvariableSpecificForbiddenRanges=";
+			for (Variable var : variableSpecificForbiddenRanges.keySet()) {
+				string += "\n\t" + var;
 				for (Integer[] range : variableSpecificForbiddenRanges.get(var)) {
 					string += "\n\t\t[" + range[0] + ".." + range[1] + "]";
 				}
+			}
 		}
-				string += "\nvariableSpecificForbiddenValues="
-				+ variableSpecificForbiddenValues + "]";
+		if (!variableSpecificForbiddenValues.isEmpty()) {
+			string += "\nvariableSpecificForbiddenValues="
+					+ variableSpecificForbiddenValues + "\n";
+		}
+		string += "]";
 		return string;
 	}
 

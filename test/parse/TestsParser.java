@@ -1,3 +1,5 @@
+package parse;
+
 import static org.junit.Assert.*;
 
 import java.io.IOException;
@@ -7,6 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import core.CSP;
+import core.Constraint;
+import core.Domain;
+import core.Variable;
 import parse.Parser;
 
 
@@ -42,6 +47,19 @@ public class TestsParser {
 	public void test_parse() throws IOException {
 		String filepath = "data/sample_csp.txt";
 		CSP csp = Parser.parseCSP(filepath);
-		System.out.println(csp);
+		for (Variable var : csp.getVariables().keySet()) {
+			assertTrue(var.getName().equals("var_1")
+					|| var.getName().equals("var_2")
+					|| var.getName().equals("var_3"));
+		}
+		for (Domain dom : csp.getDomains()) {
+			assertTrue(dom.getName().equals("d1")
+					|| dom.getName().equals("d2"));
+		}
+		for (Constraint con : csp.getConstraints()) {
+			assertTrue(con.getLeft().getName().equals("var_1")
+					|| con.getLeft().getName().equals("var_2")
+					|| con.getLeft().getName().equals("var_3"));
+		}
 	}
 }

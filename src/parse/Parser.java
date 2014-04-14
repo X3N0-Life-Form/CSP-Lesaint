@@ -41,6 +41,7 @@ public class Parser {
 	private static String bufferedLine = null;
 
 	public static CSP parseCSP(String filename) throws IOException {
+		System.out.println("### Begin parsing of " + filename + " ###");
 		File file = new File(filename);
 		FileInputStream fis = new FileInputStream(file);
 		InputStreamReader isr = new InputStreamReader(fis);
@@ -60,9 +61,11 @@ public class Parser {
 			switch (state) {
 			case DOMAIN:
 				if (line.trim().startsWith($_DOMAIN)) {
-					domains.add(parseDomain(reader, line));
+					Domain dom = parseDomain(reader, line);
+					domains.add(dom);
 				} else if (bufferedLine != null && bufferedLine.trim().startsWith($_DOMAIN)) {
-					domains.add(parseDomain(reader, bufferedLine));
+					Domain dom = parseDomain(reader, bufferedLine);
+					domains.add(dom);
 				} else {
 					continue;
 				}
@@ -93,6 +96,7 @@ public class Parser {
 		}
 		
 		CSP csp = constructCSP();
+		System.out.println("### Parsing complete ###");
 		
 		return csp;
 	}
@@ -110,14 +114,16 @@ public class Parser {
 
 	protected static CSP constructCSP() {
 		CSP csp = new CSP();
-		
+		System.out.println("Constructing CSP");
 		for (Variable var : variables) {
 			String dname = var_dom.get(var);
 			Domain dom = getDom(dname);
+			System.out.println(var.getName() + " => " + dom);
 			csp.addVariable(var, dom);
 		}
 		
 		for (Constraint con : constraints) {
+			System.out.println(con);
 			csp.addConstraint(con);
 		}
 		
@@ -131,48 +137,6 @@ public class Parser {
 			}
 		}
 		return null;
-	}
-
-	/**
-	 * Note: Variables must have been parsed.
-	 * @param reader
-	 * @param line
-	 * @return
-	 * @throws IOException
-	 */
-	protected static Constraint parseConstraint(BufferedReader reader, String line) throws IOException {
-		//String name = getName(line);
-		Variable left = null;
-		Variable right = null;
-		ConstraintType type = null;
-		int value = 0;
-		System.out.println(line);
-		line = reader.readLine();
-		System.out.println(line);
-		while (line != null && !exitLoop(line)) {
-			if (line.trim().startsWith("+variable:")) {
-				left = getVar(line);
-			} else if (line.trim().startsWith("+type:")) {
-				type = getConstraintType(line);
-			} else if (line.trim().startsWith("+value:")) {
-				value = getInt(line);
-			} else if (line.trim().startsWith("+second:")) {
-				right = getVar(line);
-			}
-			
-			line = reader.readLine();
-		}
-		
-		setState(line);
-		try {
-			if (right != null) {
-				return new Constraint(left, type, right);
-			} else {
-				return new Constraint(left, type, value);
-			}
-		} catch (VariableException e) {
-			return null;
-		}
 	}
 
 	private static ConstraintType getConstraintType(String line) {
@@ -235,22 +199,62 @@ public class Parser {
 		
 		domain.setName(name);
 		line = reader.readLine();
-		do {
+		while (line != null && !exitLoop(line)) {
 			if (line.trim().startsWith("+lowerBoundary:")) {
 				int boundary = getInt(line);
 				((IntegerDomain)domain).setLowerBoundary(boundary);
-			} else if (line.startsWith("+upperBoundary:")) {
+			} else if (line.trim().startsWith("+upperBoundary:")) {
 				int boundary = getInt(line);
 				((IntegerDomain)domain).setUpperBoundary(boundary);;
 			}
 			
-			if (exitLoop(line)) {
-				break;
-			}
-		} while ((line = reader.readLine()) != null);
+			line = reader.readLine();
+		}
 		
 		setState(line);
 		return domain;
+	}
+	
+	/**
+	 * Note: Variables must have been parsed.
+	 * @param reader
+	 * @param line
+	 * @return
+	 * @throws IOException
+	 */
+	protected static Constraint parseConstraint(BufferedReader reader, String line) throws IOException {
+		//String name = getName(line);
+		Variable left = null;
+		Variable right = null;
+		ConstraintType type = null;
+		int value = 0;
+		//System.out.println(line);
+		line = reader.readLine();
+		//System.out.println(line);
+		while (line != null && !exitLoop(line)) {
+			if (line.trim().startsWith("+variable:")) {
+				left = getVar(line);
+			} else if (line.trim().startsWith("+type:")) {
+				type = getConstraintType(line);
+			} else if (line.trim().startsWith("+value:")) {
+				value = getInt(line);
+			} else if (line.trim().startsWith("+second:")) {
+				right = getVar(line);
+			}
+			
+			line = reader.readLine();
+		}
+		
+		setState(line);
+		try {
+			if (right != null) {
+				return new Constraint(left, type, right);
+			} else {
+				return new Constraint(left, type, value);
+			}
+		} catch (VariableException e) {
+			return null;
+		}
 	}
 
 	private static int getInt(String line) {
