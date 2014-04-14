@@ -1,5 +1,6 @@
 package algo;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -108,7 +109,6 @@ public class ArcConsistency_1 extends Algorithm {
 	 */
 	protected boolean verifyDomain(Constraint c, Domain domain) {
 		int value = (int) c.getValue();
-		//TODO forbid shit for this variable only
 		switch (c.getType()) {
 		case DIFFERENT:
 			flagForForbiddation(value, (IntegerDomain) domain, c.getLeft()); 
@@ -290,6 +290,8 @@ public class ArcConsistency_1 extends Algorithm {
 	public void start() throws AlgorithmException {
 		super.start();
 		AC1(problem);
+		endTime = new Date();
+		System.out.println("Run time: " + getRunTimeString());
 	}
 	
 	@Override

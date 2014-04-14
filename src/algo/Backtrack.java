@@ -1,5 +1,7 @@
 package algo;
 
+import java.util.Date;
+
 import core.CSP;
 import core.Domain;
 import core.IntegerDomain;
@@ -56,7 +58,9 @@ public class Backtrack extends Algorithm {
 	public void start() throws AlgorithmException {
 		super.start();
 		System.out.println("CSP to solve: \n" + problem);
-		if (backtrack(problem)) {
+		boolean result = backtrack(problem);
+		endTime = new Date();
+		if (result) {
 			 System.out.println("Solution:");
 			 for (Variable var : problem.getVariables().keySet()) {
 				 System.out.println("\t" + var);
@@ -64,7 +68,7 @@ public class Backtrack extends Algorithm {
 		} else {
 			System.out.println("CSP could not be solved");
 		}
-		
+		System.out.println("Run time: " + getRunTimeString());
 	}
 
 	@Override
