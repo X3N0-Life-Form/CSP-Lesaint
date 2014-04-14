@@ -243,11 +243,14 @@ public class ArcConsistency_1 extends Algorithm {
 	 * @param d_right
 	 */
 	protected void flagForForbiddation(int value, IntegerDomain d_right) {
+		if (toForbid.get(d_right) == null) {
+			toForbid.put(d_right, new LinkedList<Integer>());
+		}
 		toForbid.get(d_right).add(value);
 	}
 	
 	protected void flagForForbiddationRange(int lowerBoundary, int upperBoundary,
-			IntegerDomain domain, Variable var) {//TODO: don't add directly?
+			IntegerDomain domain, Variable var) {
 		domain.addForbiddenRange(lowerBoundary, upperBoundary, var);
 	}
 
@@ -258,13 +261,13 @@ public class ArcConsistency_1 extends Algorithm {
 	 * @param var
 	 */
 	protected void flagForForbiddationNot(int value, IntegerDomain domain,
-			Variable var) {//TODO see above
+			Variable var) {
 		domain.addForbiddenRange(domain.getLowerBoundary(), value - 1, var);
 		domain.addForbiddenRange(value + 1, domain.getUpperBoundary(), var);
 	}
 
 	protected void flagForForbiddation(int value, IntegerDomain domain,
-			Variable var) {//TODO see above
+			Variable var) {
 		domain.addForbiddenValue(value, var);
 	}
 	
@@ -274,10 +277,12 @@ public class ArcConsistency_1 extends Algorithm {
 	protected void updateForbiddenValues() {
 		for (Domain domain : toForbid.keySet()) {
 			List<Integer> list = toForbid.get(domain);
-			for (Integer value : list) {
-				((IntegerDomain) domain).addForbiddenValue(value);
+			if (list != null) {
+				for (Integer value : list) {
+					((IntegerDomain) domain).addForbiddenValue(value);
+				}
+				list.clear();
 			}
-			list.clear();
 		}
 	}
 

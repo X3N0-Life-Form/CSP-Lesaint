@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import core.CSP;
@@ -108,19 +107,17 @@ public class TestsAlgorithm {
 		assertFalse(a_3.gotExecd);
 	}
 	
-	@Ignore
 	@Test
 	public void test_proofThatThisThingIsSolvable() throws AlgorithmException {
 		backtrack.start();
 		assertTrue(backtrack.problem.isProblemSolved());
 	}
 	
-	@Ignore
 	@Test
 	public void test_AC1_Backtrack() throws AlgorithmException {
 		backtrack.addBeforeAlgorithm(AC1);
 		backtrack.start();
-		//assertTrue(backtrack.isSolved());
+		assertTrue(backtrack.isSolved());
 	}
 
 }

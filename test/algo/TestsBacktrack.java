@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import core.CSP;
@@ -86,7 +85,6 @@ public class TestsBacktrack {
 		assertEquals(1, var_2.getValue());
 	}
 	
-	@Ignore
 	@Test
 	public void test_start() throws AlgorithmException {
 		bt.start();

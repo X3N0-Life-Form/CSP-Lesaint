@@ -104,7 +104,7 @@ public class TestsAC1 {
 		AC1.flagForForbiddation(4, d1);
 		assertTrue(AC1.getToForbid().get(d1).contains(4));
 		AC1.updateForbiddenValues();
-		assertFalse(AC1.getToForbid().get(d1).contains(4));
+		assertNull(AC1.getToForbid().get(d1));
 		assertTrue(d1.isValueForbidden(4));
 	}
 	

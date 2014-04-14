@@ -19,7 +19,7 @@ public abstract class Algorithm {
 	 * 
 	 * @return true if this algorithm's CSP has been solved.
 	 */
-	/*public boolean isSolved() {
+	public boolean isSolved() {
 		return problem.isProblemSolved();
 	}/**/
 	
