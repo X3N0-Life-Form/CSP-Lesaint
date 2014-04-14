@@ -5,12 +5,12 @@
 $Domain:	d1
 
 	+lowerBoundary:	-125
-	+upperBoundary:	7500
+	+upperBoundary:	750
 	
 $Domain:	d2
 
 	+lowerBoundary:	0
-	+upperBoundary:	100000
+	+upperBoundary:	500
 
 #Variables
 $Variable:	var_1
@@ -58,11 +58,11 @@ $Constraint: 	var_1 < var_2
 	+type:		INF
 	+second:	var_2
 
-$Constraint:	var_2 < 500
+$Constraint:	var_2 < 50
 
 	+variable:	var_2
 	+type:		SUP_EQUAL
-	+value:		500
+	+value:		50
 
 $Constraint:	var_3 > var_2
 
@@ -88,22 +88,22 @@ $Constraint:	var_3_2 == var_1_2
 	+type:		EQUAL
 	+second:	var_1_2
 
-$Constraint:	var2_2 != 4919
+$Constraint:	var_2_2 != 491;9
 
 	+variable:	var_2_2
 	+type:		DIFFERENT
-	+value:		4919	
+	+value:		491
 
-$Constraint:	var_2_2 != 1337
+$Constraint:	var_2_2 != 133;7
 
 	+variable:	var_2_2
 	+type:		DIFFERENT
-	+value:		1337
+	+value:		133
 
-$Constraint:	var_1 < 4000
+$Constraint:	var_1 < 400
 
 	+variable:	var_1
 	+type:		INF
-	+value:		4000
+	+value:		400
 
 #End
