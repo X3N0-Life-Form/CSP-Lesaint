@@ -59,7 +59,7 @@ public class Backtrack extends Algorithm {
 		if (backtrack(problem)) {
 			 System.out.println("Solution:");
 			 for (Variable var : problem.getVariables().keySet()) {
-				 System.out.println("\n\t" + var);
+				 System.out.println("\t" + var);
 			 }
 		} else {
 			System.out.println("CSP could not be solved");

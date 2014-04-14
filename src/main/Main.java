@@ -17,7 +17,7 @@ public class Main {
 		dealsWithArgs(args);
 		printRecap();
 		backtrack.start();
-		System.out.println("Result:");
+		System.out.println("### Final Result ###");
 		System.out.println(csp);
 	}
 
@@ -40,7 +40,6 @@ public class Main {
 	}
 	
 	private static void printRecap() {
-		System.out.println(csp);
 		System.out.println(backtrack);
 	}
 

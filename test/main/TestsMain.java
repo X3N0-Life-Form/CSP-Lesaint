@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import algo.AlgorithmException;
@@ -27,6 +28,7 @@ public class TestsMain {
 		Main.main(args);
 	}
 	
+	@Ignore
 	@Test
 	public void test_ac1() throws AlgorithmException, IOException {
 		String[] args = new String[] {
