@@ -32,15 +32,19 @@ public class Backtrack extends Algorithm {
 				try {
 					// deal with a range of values
 					for (int i = dom.getLowerBoundary(); i <= dom.getUpperBoundary(); i++) {
-							var.setValue(i);
+						var.setValue(i);
+						if (i % (dom.size() * 0.1) == 0
+								|| i == dom.getUpperBoundary()
+								|| i == dom.getLowerBoundary()) {
 							System.out.println(var.getName() + " = " + i);
-							if (toReset != null) {
-								toReset.resetValue();
-								toReset = null;
-							}
-							if (backtrack(csp)) {
-								return true;
-							}
+						}
+						if (toReset != null) {
+							toReset.resetValue();
+							toReset = null;
+						}
+						if (backtrack(csp)) {
+							return true;
+						}
 					}
 					
 					// deal with a list of values (if it exists)
@@ -80,7 +84,7 @@ public class Backtrack extends Algorithm {
 				 System.out.println("\t" + var);
 			 }
 		} else {
-			System.out.println("CSP could not be solved");
+			System.out.println("CSP could not be solved.");
 		}
 		System.out.println("Run time: " + getRunTimeString());
 	}
@@ -92,7 +96,7 @@ public class Backtrack extends Algorithm {
 	
 	@Override
 	public String getName() {
-		return "### BACKTRACK ###";
+		return "### Backtrack ###";
 	}
 
 }

@@ -52,7 +52,7 @@ public class TestsBigOnes {
 		backtrack.addBeforeAlgorithm(AC1);
 		backtrack.start();
 		results.add("big_csp.txt: AC1 + BT - " + backtrack.getRunTimeString()
-				+ "(+AC1 runtime " + AC1.getRunTimeString() + ")");
+				+ " ( + AC1 runtime " + AC1.getRunTimeString() + ")");
 	}
 
 }
