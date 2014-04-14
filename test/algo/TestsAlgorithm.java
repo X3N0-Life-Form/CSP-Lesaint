@@ -115,8 +115,10 @@ public class TestsAlgorithm {
 	
 	@Test
 	public void test_AC1_Backtrack() throws AlgorithmException {
+		System.out.println("############## BEGIN #################");
 		backtrack.addBeforeAlgorithm(AC1);
 		backtrack.start();
+		System.out.println("############### END ####################");
 		assertTrue(backtrack.isSolved());
 	}
 

@@ -42,6 +42,13 @@ public class Variable implements Comparable<Variable> {
 	public Object getValue() {
 		return value;
 	}
+	
+	/**
+	 * Reset this Variable's value to null.
+	 */
+	public void resetValue() {
+		value = null;
+	}
 
 	public String getName() {
 		return name;
