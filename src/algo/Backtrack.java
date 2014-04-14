@@ -33,14 +33,12 @@ public class Backtrack extends Algorithm {
 					// deal with a range of values
 					for (int i = dom.getLowerBoundary(); i <= dom.getUpperBoundary(); i++) {
 							var.setValue(i);
-							//System.out.println(var.getName() + " = " + i);
+							System.out.println(var.getName() + " = " + i);
 							if (toReset != null) {
 								toReset.resetValue();
-								//System.out.println("resetting " + toReset);
 								toReset = null;
 							}
 							if (backtrack(csp)) {
-								//System.out.println("====> return true");
 								return true;
 							}
 					}
@@ -56,10 +54,8 @@ public class Backtrack extends Algorithm {
 					
 					if (toReset == null) {
 						toReset = var;
-						//System.out.println("flagging for reset " + toReset);
 					} else {
 						toReset.resetValue();
-						//System.out.println("resetting " + toReset);
 						toReset = null;
 					}
 				} catch (VariableException e) {

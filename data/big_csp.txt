@@ -1,0 +1,109 @@
+;;
+;; Big CSP meant to test the efficiency of the algorithms
+;;
+#Domains
+$Domain:	d1
+
+	+lowerBoundary:	-125
+	+upperBoundary:	7500
+	
+$Domain:	d2
+
+	+lowerBoundary:	0
+	+upperBoundary:	100000
+
+#Variables
+$Variable:	var_1
+
+	+domain:	d1
+
+$Variable:	var_1
+
+	+domain:	d1
+	
+$Variable:	var_2
+
+	+domain:	d1
+	
+$Variable:	var_3
+
+	+domain:	d1
+	
+$Variable:	var_4
+
+	+domain:	d1
+
+$Variable:	var_5
+
+	+domain:	d1
+	
+$Variable:	var_1_2
+
+	+domain:	d2
+	
+$Variable:	var_2_2
+
+	+domain:	d2
+	
+$Variable:	var_3_2
+
+	+domain:	d1
+
+
+#Constraints
+;; valid types are: EQUAL, DIFFERENT, INF, INF_EQUAL, SUP, SUP_EQUAL;
+$Constraint: 	var_1 < var_2
+
+	+variable:	var_1
+	+type:		INF
+	+second:	var_2
+
+$Constraint:	var_2 < 500
+
+	+variable:	var_2
+	+type:		SUP_EQUAL
+	+value:		500
+
+$Constraint:	var_3 > var_2
+
+	+variable:	var_3
+	+type:		SUP
+	+second:	var_2
+
+$Constraint:	var_5 != var_4
+
+	+variable:	var_5
+	+type:		DIFFERENT
+	+second:	var_4
+
+$Constraint:	var_4 == var_3
+
+	+variable:	var_4
+	+type:		EQUAL
+	+second:	var_3
+
+$Constraint:	var_3_2 == var_1_2
+
+	+variable:	var_3_2
+	+type:		EQUAL
+	+second:	var_1_2
+
+$Constraint:	var2_2 != 4919
+
+	+variable:	var_2_2
+	+type:		DIFFERENT
+	+value:		4919	
+
+$Constraint:	var_2_2 != 1337
+
+	+variable:	var_2_2
+	+type:		DIFFERENT
+	+value:		1337
+
+$Constraint:	var_1 < 4000
+
+	+variable:	var_1
+	+type:		INF
+	+value:		4000
+
+#End

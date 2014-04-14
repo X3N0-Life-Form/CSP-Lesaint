@@ -62,4 +62,11 @@ public class TestsParser {
 					|| con.getLeft().getName().equals("var_3"));
 		}
 	}
+	
+	@Test
+	public void test_parse_big() throws IOException {
+		String filepath = "data/big_csp.txt";
+		Parser.parseCSP(filepath);
+		// No fuck up = passes
+	}
 }

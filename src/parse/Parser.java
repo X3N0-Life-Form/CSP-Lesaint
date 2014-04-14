@@ -234,6 +234,10 @@ public class Parser {
 		while (line != null && !exitLoop(line)) {
 			if (line.trim().startsWith("+variable:")) {
 				left = getVar(line);
+				if (left == null) {
+					System.out.println("Error: could not find variable " + getName(line));
+					return null;
+				}
 			} else if (line.trim().startsWith("+type:")) {
 				type = getConstraintType(line);
 			} else if (line.trim().startsWith("+value:")) {
