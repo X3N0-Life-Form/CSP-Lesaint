@@ -45,6 +45,10 @@ public class CSP {
 		return constraints;
 	}
 	
+	/**
+	 * Verifies all constraints.
+	 * @return true if all Constraints are validated.
+	 */
 	public boolean isProblemSolved() {
 		// check domains
 		for (Variable var : variables.keySet()) {
@@ -161,6 +165,19 @@ public class CSP {
 			System.out.println(var);
 		}
 	}
-	
+
+	/**
+	 * Lookup a Variable according to its name.
+	 * @param varName
+	 * @return Requested Variable or null.
+	 */
+	public Variable getVariable(String varName) {
+		for (Variable var : variables.keySet()) {
+			if (var.getName().equals(varName)) {
+				return var;
+			}
+		}
+		return null;
+	}
 	
 }

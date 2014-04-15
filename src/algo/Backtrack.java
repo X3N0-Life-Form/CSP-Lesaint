@@ -10,13 +10,18 @@ import core.exceptions.VariableException;
 
 public class Backtrack extends Algorithm {
 	
-	private Variable toReset = null;
+	protected Variable toReset = null;
 
 	public Backtrack(CSP csp) {
 		super(csp);
 	}
 
-	// gen & test?
+	/**
+	 * Generate & Test
+	 * @param csp
+	 * @return true if the CSP is solved
+	 * @throws AlgorithmException
+	 */
 	public boolean backtrack(CSP csp) throws AlgorithmException {
 		//csp.printVariables();
 		if (csp.isProblemSolved()) {
