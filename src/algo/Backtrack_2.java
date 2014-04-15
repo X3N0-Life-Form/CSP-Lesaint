@@ -31,7 +31,8 @@ public class Backtrack_2 extends Backtrack {
 		}
 		
 		Variable var = null;
-		while ((var = csp.getUnsetVariable()) != null) {
+		Variable notThisOne = null;
+		while ((var = csp.getUnsetVariable(notThisOne)) != null) {
 			try {
 				IntegerDomain dom = (IntegerDomain) csp.getVariables().get(var);
 				for (int i = dom.getLowerBoundary(); i <= dom.getUpperBoundary(); i++) {
@@ -49,6 +50,10 @@ public class Backtrack_2 extends Backtrack {
 						if (backtrack(csp)) {
 							return true;
 						}
+					} else {
+						// no point in continuing to loop
+						notThisOne = var; //not working
+						break;
 					}
 				}
 				

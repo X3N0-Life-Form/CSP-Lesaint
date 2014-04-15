@@ -76,8 +76,12 @@ public class CSP {
 	 * @return Variable object that has not been set, or null.
 	 */
 	public Variable getUnsetVariable() {
+		return getUnsetVariable(null);
+	}
+	
+	public Variable getUnsetVariable(Variable butNotThisOne) {
 		for (Variable var : variables.keySet()) {
-			if (var.getValue() == null) {
+			if (var.getValue() == null && var != butNotThisOne) {
 				return var;
 			}
 		}

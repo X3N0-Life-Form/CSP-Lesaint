@@ -16,6 +16,7 @@ public class TestsBigOnes {
 	private CSP big_csp;
 	private Backtrack backtrack;
 	private ArcConsistency_1 AC1;
+	private Backtrack_2 bt2;
 	
 	@BeforeClass
 	public static void setup_before() {
@@ -55,4 +56,20 @@ public class TestsBigOnes {
 				+ " ( + AC1 runtime " + AC1.getRunTimeString() + ")");
 	}
 
+	@Test
+	public void test_big_BT2() throws AlgorithmException {
+		bt2 = new Backtrack_2(big_csp);
+		bt2.start();
+		results.add("big_csp.txt: BT2 - " + bt2.getRunTimeString());
+	}
+	
+	//@Test
+	public void test_big_AC1_BT2() throws AlgorithmException {
+		bt2 = new Backtrack_2(big_csp);
+		AC1 = new ArcConsistency_1(big_csp);
+		bt2.addBeforeAlgorithm(AC1);
+		bt2.start();
+		results.add("big_csp.txt: AC1 + BT2 - " + bt2.getRunTimeString()
+				+ " ( + AC1 runtime " + AC1.getRunTimeString() + ")");
+	}
 }

@@ -32,7 +32,7 @@ public class TestsBacktrack_2 {
 	public void tearDown() throws Exception {
 	}
 
-	//@Test
+	@Test
 	public void test_constraintsMightGetValidated() throws VariableException {
 		var_1.setValue(6);
 		assertFalse(bt2.constraintsMightGetValidated(csp, var_1));
