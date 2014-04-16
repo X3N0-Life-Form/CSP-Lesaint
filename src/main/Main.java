@@ -6,6 +6,7 @@ import parse.Parser;
 import algo.AlgorithmException;
 import algo.ArcConsistency_1;
 import algo.Backtrack;
+import algo.Backtrack_2;
 import core.CSP;
 
 public class Main {
@@ -34,6 +35,9 @@ public class Main {
 			case "-ac3":
 			case "-fc":
 				System.out.println(args[i] + " not implemented.");
+				break;
+			case "-tg":
+				backtrack = new Backtrack_2(csp);
 				break;
 			}
 		}
